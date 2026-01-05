@@ -9,7 +9,7 @@ import { Todo } from './api/todos';
 export const App: React.FC = () => {
   const preparedTodos: Todo[] = todosFromServer.map(todo => ({
     ...todo,
-    user: usersFromServer.find(u => u.id === todo.userId)!,
+    user: usersFromServer.find(user => user.id === todo.userId)!,
   }));
 
   const [todos, setTodos] = useState<Todo[]>(preparedTodos);
@@ -38,8 +38,8 @@ export const App: React.FC = () => {
       return;
     }
 
-    const user = usersFromServer.find(u => u.id === userId)!;
-    const maxId = todos.length ? Math.max(...todos.map(t => t.id)) : 0;
+    const user = usersFromServer.find(user2 => user2.id === userId)!;
+    const maxId = todos.length ? Math.max(...todos.map(todo => todo.id)) : 0;
 
     const newTodo: Todo = {
       id: maxId + 1,

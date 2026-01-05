@@ -1,15 +1,27 @@
 import React from 'react';
-import { Todo } from '../../api/todos';
+import { Todo as ApiTodo } from '../../api/todos';
 import { UserInfo } from '../UserInfo';
 
-interface Props {
-  todo: Todo;
+interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
 }
+
+type TodoWithUser = ApiTodo & {
+  user: User;
+};
+
+type Props = {
+  todo: TodoWithUser;
+};
 
 export const TodoInfo: React.FC<Props> = ({ todo }) => {
   return (
     <article
       className={`TodoInfo ${todo.completed ? 'TodoInfo--completed' : ''}`}
+      data-id={todo.id}
     >
       <h2 className="TodoInfo__title">{todo.title}</h2>
 
