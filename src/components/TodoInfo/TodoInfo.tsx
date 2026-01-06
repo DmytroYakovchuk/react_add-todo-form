@@ -1,17 +1,6 @@
 import React from 'react';
-import { Todo as ApiTodo } from '../../api/todos';
 import { UserInfo } from '../UserInfo';
-
-interface User {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-}
-
-type TodoWithUser = ApiTodo & {
-  user: User;
-};
+import type { TodoWithUser } from '../../api/types';
 
 type Props = {
   todo: TodoWithUser;

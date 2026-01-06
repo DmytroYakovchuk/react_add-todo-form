@@ -5,14 +5,19 @@ import { TodoList } from './components/TodoList';
 import usersFromServer from './api/users';
 import todosFromServer from './api/todos';
 import { Todo } from './api/todos';
+import type { TodoWithUser } from './api/types';
 
 export const App: React.FC = () => {
-  const preparedTodos: Todo[] = todosFromServer.map(todo => ({
+  const preparedTodos: TodoWithUser[] = todosFromServer.map(todo => ({
     ...todo,
-    user: usersFromServer.find(user => user.id === todo.userId)!,
+    user: usersFromServer.find(user => user.id === todo.userId),
+
+    if (!user) {
+      return null;
+    }
   }));
 
-  const [todos, setTodos] = useState<Todo[]>(preparedTodos);
+  const [todos, setTodos] = useState<TodoWithUser[]>(preparedTodos);
   const [title, setTitle] = useState('');
   const [userId, setUserId] = useState(0);
 
@@ -39,6 +44,11 @@ export const App: React.FC = () => {
     }
 
     const user = usersFromServer.find(user2 => user2.id === userId)!;
+
+    if (!user) {
+      return null;
+    }
+
     const maxId = todos.length ? Math.max(...todos.map(todo => todo.id)) : 0;
 
     const newTodo: Todo = {

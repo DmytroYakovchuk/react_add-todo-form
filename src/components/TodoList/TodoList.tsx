@@ -1,10 +1,5 @@
 import { TodoInfo } from '../TodoInfo';
-import type { Todo as ApiTodo } from '../../api/todos';
-import type { User } from '../../api/users';
-
-type TodoWithUser = ApiTodo & {
-  user: User;
-};
+import type { TodoWithUser } from '../../api/types';
 
 interface Props {
   todos: TodoWithUser[];
